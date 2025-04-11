@@ -1,0 +1,15 @@
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Debug\net8.0\ChessLogic.deps.json
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Debug\net8.0\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Debug\net8.0\ChessLogic.pdb
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.AssemblyInfo.cs
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.sourcelink.json
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\refint\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.pdb
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ref\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Debug\net8.0\ChessLogic.exe
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Debug\net8.0\ChessLogic.runtimeconfig.json
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Debug\net8.0\ChessLogic.genruntimeconfig.cache

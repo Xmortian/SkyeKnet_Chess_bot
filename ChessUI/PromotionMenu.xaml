@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="ChessUI.PromotionMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChessUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Border Width="400"
+            Height="200"
+            Style="{StaticResource BorderStyle}">
+        <Grid RenderOptions.BitmapScalingMode="HighQuality">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="PROMOTE TO"
+                       Style="{StaticResource TextStyle}"
+                       FontSize="28"
+                       HorizontalAlignment="Center"
+                       Margin="0,10,0,10"/>
+
+            <UniformGrid Grid.Row="1"
+                         Rows="1"
+                         Columns="4"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center">
+                <Image x:Name="QueenImage"
+                       MouseDown="QueenImg_MouseDown"
+                       Source="Assets/Chess_qlt60.png"
+                       Width="80"
+                       Height="80"
+                       Margin="5"/>
+                
+    
+    
+
+                <Image x:Name="RookImage"
+                       MouseDown="RookImg_MouseDown"
+                       Source="Assets/Chess_rlt60.png"
+                       Width="80"
+                       Height="80"
+                       Margin="5"/>
+
+                <Image x:Name="BishopImage"
+                       MouseDown="BishopImg_MouseDown"
+                       Source="Assets/Chess_blt60.png"
+                       
+                       Width="80"
+                       Height="80"
+                       Margin="5"/>
+
+                <Image x:Name="KnightImage"
+                       MouseDown="KnightImg_MouseDown"
+                       Source="Assets/Chess_nlt60.png"
+                       Width="80"
+                       Height="80"
+                       Margin="5"/>
+            </UniformGrid>
+        </Grid>
+    </Border>
+</UserControl>
+
+
+
+    
+    

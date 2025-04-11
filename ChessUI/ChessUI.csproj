@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Board.png" />
+    <None Remove="Assets\Chess_bdt60.png" />
+    <None Remove="Assets\Chess_blt60.png" />
+    <None Remove="Assets\Chess_kdt60.png" />
+    <None Remove="Assets\Chess_klt60.png" />
+    <None Remove="Assets\Chess_ndt60.png" />
+    <None Remove="Assets\Chess_nlt60.png" />
+    <None Remove="Assets\Chess_pdt60.png" />
+    <None Remove="Assets\Chess_plt60.png" />
+    <None Remove="Assets\Chess_qdt60.png" />
+    <None Remove="Assets\Chess_qlt60.png" />
+    <None Remove="Assets\Chess_rdt60.png" />
+    <None Remove="Assets\Chess_rlt60.png" />
+    <None Remove="Assets\CursorB.cur" />
+    <None Remove="Assets\CursorW.cur" />
+    <None Remove="Assets\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChessLogic\ChessLogic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Board.png" />
+    <Resource Include="Assets\Chess_bdt60.png" />
+    <Resource Include="Assets\Chess_blt60.png" />
+    <Resource Include="Assets\Chess_kdt60.png" />
+    <Resource Include="Assets\Chess_klt60.png" />
+    <Resource Include="Assets\Chess_ndt60.png" />
+    <Resource Include="Assets\Chess_nlt60.png" />
+    <Resource Include="Assets\Chess_pdt60.png" />
+    <Resource Include="Assets\Chess_plt60.png" />
+    <Resource Include="Assets\Chess_qdt60.png" />
+    <Resource Include="Assets\Chess_qlt60.png" />
+    <Resource Include="Assets\Chess_rdt60.png" />
+    <Resource Include="Assets\Chess_rlt60.png" />
+    <Resource Include="Assets\CursorB.cur" />
+    <Resource Include="Assets\CursorW.cur" />
+    <Resource Include="Assets\icon.ico" />
+  </ItemGroup>
+
+</Project>
