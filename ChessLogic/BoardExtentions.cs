@@ -4,7 +4,7 @@ namespace Chess.AI
 {
     public static class BoardExtensions
     {
-=        public static Player CurrentPlayer(this StateOfGame state)
+       public static Player CurrentPlayer(this StateOfGame state)
         {
             return state.CurrentPlayer;
         }

@@ -22,7 +22,7 @@
             ColumnDelta = columnDelta; // Change in columns
         }
 
-=        public static Direction operator +(Direction dir1, Direction dir2)
+        public static Direction operator +(Direction dir1, Direction dir2)
         {
             return new Direction(dir1.RowDelta + dir2.RowDelta, dir1.ColumnDelta + dir2.ColumnDelta);
         }
