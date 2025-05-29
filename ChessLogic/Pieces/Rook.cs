@@ -28,7 +28,7 @@ namespace ChessLogic
             return copy;
         }
 
-        public override IEnumerable<Move> GetMoves(Position from, board board)
+        public override IEnumerable<Move> GetMoves(Position from, board board, bool forAttackOnly = false)
         {
             return MovePositionsDirs(from, board, dirs) // Fixed method name
                 .Select(to => board.IsEmpty(to)         // Capitalized "Select"

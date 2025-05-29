@@ -3,6 +3,7 @@
     public class CaptureMove : Move
     {
         public override MoveType Type => MoveType.Normal;
+
         public override Position FromPos { get; }
         public override Position ToPos { get; }
 
@@ -16,10 +17,8 @@
         {
             board[ToPos] = board[FromPos];
             board[FromPos] = null;
-
             return true;
         }
-
 
         public override bool IsLegal(board board)
         {

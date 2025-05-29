@@ -1,12 +1,143 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\USER\\source\\repos\\ChessBot\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\quiescencesearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\quiescencesearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\chessai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\chessai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\pieces\\piece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\pieces\\piece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\botdialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\botdialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\moveordering.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\moveordering.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\evaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\evaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Piece.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Piece.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Pieces\\Piece.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Piece.cs",
+              "RelativeToolTip": "ChessLogic\\Pieces\\Piece.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAgwEIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T09:45:32.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "board.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\board.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\board.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\board.cs",
+              "RelativeToolTip": "ChessLogic\\board.cs",
+              "ViewState": "AgIAAPQAAAAAAAAAAAAwwBABAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T09:40:01.719Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CHESSAI.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\CHESSAI.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\CHESSAI.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\CHESSAI.cs*",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\CHESSAI.cs*",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAAwN0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T21:03:50.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QuieScenceSearch.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\QuieScenceSearch.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\QuieScenceSearch.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\QuieScenceSearch.cs*",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\QuieScenceSearch.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T00:49:54.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EVALUATOR.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\EVALUATOR.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\EVALUATOR.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\EVALUATOR.cs",
+              "RelativeToolTip": "ChessLogic\\EVALUATOR.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAUwGABAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T21:39:04.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MoveOrdering.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAowDwAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T21:24:15.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BotDialogue.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAAwGoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T21:20:22.197Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -22,10 +22,17 @@
 
             return capture || piece.Type == PieceType.Pawn;
         }
-
         public override bool IsLegal(board board)
         {
-            return board.IsEmpty(ToPos); // Only allow moves to empty squares
+            Piece movingPiece = board[FromPos];
+            Piece targetPiece = board[ToPos];
+
+            // Can't move if own piece is at the destination
+            if (targetPiece != null && targetPiece.Color == movingPiece.Color)
+                return false;
+
+            return true;
         }
+
     }
 }

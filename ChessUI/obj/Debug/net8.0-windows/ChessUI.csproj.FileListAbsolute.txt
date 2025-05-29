@@ -1,3 +1,6 @@
+C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessLogic.deps.json
+C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessLogic.runtimeconfig.json
+C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessLogic.exe
 C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessUI.exe
 C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessUI.deps.json
 C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessUI.runtimeconfig.json
@@ -26,6 +29,3 @@ C:\Users\USER\source\repos\ChessBot\ChessUI\obj\Debug\net8.0-windows\refint\Ches
 C:\Users\USER\source\repos\ChessBot\ChessUI\obj\Debug\net8.0-windows\ChessUI.pdb
 C:\Users\USER\source\repos\ChessBot\ChessUI\obj\Debug\net8.0-windows\ChessUI.genruntimeconfig.cache
 C:\Users\USER\source\repos\ChessBot\ChessUI\obj\Debug\net8.0-windows\ref\ChessUI.dll
-C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessLogic.deps.json
-C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessLogic.runtimeconfig.json
-C:\Users\USER\source\repos\ChessBot\ChessUI\bin\Debug\net8.0-windows\ChessLogic.exe

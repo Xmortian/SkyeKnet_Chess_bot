@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChessLogic.Moves
 {
-    public  class Castle : Move
+    public class Castle : Move
     {
         public override MoveType Type { get; }
-
         public override Position FromPos { get; }
         public override Position ToPos { get; }
 
@@ -21,33 +16,27 @@ namespace ChessLogic.Moves
         {
             Type = type;
             FromPos = kingpos;
+
             if (type == MoveType.CastleKS)
             {
                 kingMoveDir = Direction.East;
                 ToPos = new Position(kingpos.Row, 6);
                 rookFromPos = new Position(kingpos.Row, 7);
                 rookToPos = new Position(kingpos.Row, 5);
-
             }
-
-            else if (type == MoveType.CastleQS) 
+            else if (type == MoveType.CastleQS)
             {
                 kingMoveDir = Direction.West;
                 ToPos = new Position(kingpos.Row, 2);
-                rookFromPos = new Position(kingpos.Row,0);
+                rookFromPos = new Position(kingpos.Row, 0);
                 rookToPos = new Position(kingpos.Row, 3);
-
             }
-
-
-
         }
 
         public override bool Execute(board board)
         {
             new NormalMove(FromPos, ToPos).Execute(board);
             new NormalMove(rookFromPos, rookToPos).Execute(board);
-
             return false;
         }
 
@@ -55,27 +44,41 @@ namespace ChessLogic.Moves
         {
             Player player = board[FromPos].Color;
 
-            if (board.IsInCheck(player))
-            {
+            // Must have castling rights
+            if ((Type == MoveType.CastleKS && !board.CastleRightKS(player)) ||
+                (Type == MoveType.CastleQS && !board.CastleRightQS(player)))
                 return false;
-            }
-            board copy = board.Copy();
-            Position kingPosInCopy = FromPos;
 
+            // Squares between king and rook must be empty
+            int startCol = Math.Min(FromPos.Column, rookFromPos.Column) + 1;
+            int endCol = Math.Max(FromPos.Column, rookFromPos.Column) - 1;
 
-            for (int i = 0; i<2; i++)
+            for (int col = startCol; col <= endCol; col++)
             {
-                new NormalMove(kingPosInCopy, kingPosInCopy + kingMoveDir).Execute(copy);
-                kingPosInCopy += kingMoveDir;
-
-                if (copy.IsInCheck(player) )
-                {
+                if (!board.IsEmpty(new Position(FromPos.Row, col)))
                     return false;
-                }
+            }
+
+            // King must not be in check
+            if (board.IsInCheck(player))
+                return false;
+
+            // Squares king passes through must not be attacked
+            Position[] kingPath = new Position[]
+            {
+                FromPos,
+                FromPos + kingMoveDir,
+                ToPos
+            };
+
+            foreach (var square in kingPath)
+            {
+                if (board.IsSquareAttacked(square, player.Opponent()))
+                    return false;
             }
 
             return true;
-
         }
+
     }
 }

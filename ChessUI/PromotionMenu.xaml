@@ -33,9 +33,9 @@
                        Width="80"
                        Height="80"
                        Margin="5"/>
-                
-    
-    
+
+
+
 
                 <Image x:Name="RookImage"
                        MouseDown="RookImg_MouseDown"

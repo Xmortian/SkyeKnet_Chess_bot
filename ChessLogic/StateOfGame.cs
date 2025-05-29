@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChessLogic.Core;
 
 namespace ChessLogic
 {
@@ -15,7 +16,6 @@ namespace ChessLogic
 
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
 
-
         public StateOfGame(Player player, board board)
         {
             CurrentPlayer = player;
@@ -27,37 +27,32 @@ namespace ChessLogic
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
-            if (!board.IsInside(pos) || Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
-            {
+            if (!board.IsInside(0, pos) || Board.IsEmpty(pos) || Board[pos].Color != CurrentPlayer)
                 return Enumerable.Empty<Move>();
-            }
 
             Piece piece = Board[pos];
             IEnumerable<Move> moveCandidates = piece.GetMoves(pos, Board);
-
-            // Filter moves that would leave the king in check
             return moveCandidates.Where(move => IsMoveSafe(move));
         }
 
-        // Helper method to check if a move is safe (does not leave the king in check)
         private bool IsMoveSafe(Move move)
         {
             board boardCopy = Board.Copy();
-            move.Execute(boardCopy);  // Simulate the move
+            move.Execute(boardCopy); 
             return !boardCopy.IsInCheck(CurrentPlayer);
         }
 
-        public void MakeMove(Move move)
+        public void MakeMove(Move move, ChessClock clock = null) 
         {
-            if (IsGameOver()) // Prevent moves after game over
+            if (IsGameOver())
             {
                 Console.WriteLine("Move ignored: Game Over!");
                 return;
             }
 
             Board.SetPawnSkipPosition(CurrentPlayer, null);
-            bool captureOrPawn =  move.Execute(Board);
-            
+            bool captureOrPawn = move.Execute(Board);
+
             if (captureOrPawn)
             {
                 noCaptureOrPawnMoves = 0;
@@ -68,22 +63,25 @@ namespace ChessLogic
                 noCaptureOrPawnMoves++;
             }
 
-            CurrentPlayer = CurrentPlayer.Opponent(); // Switch turns
+            clock?.SwitchTurn(CurrentPlayer.Opponent()); 
+
+            CurrentPlayer = CurrentPlayer.Opponent();
             UpdateStateString();
-            CheckForGameOver();
+            CheckForGameOver(clock); 
         }
 
         public IEnumerable<Move> AllLegalMovesFor(Player player)
         {
-            IEnumerable<Move> moveCandidates = Board.PiecePositionsFor(player).SelectMany(pos =>
-            {
-                Piece piece = Board[pos];
-                return piece.GetMoves(pos, Board);
-            });
-            return moveCandidates.Where(move => IsMoveSafe(move));
+            return Board.PiecePositionsFor(player)
+                .SelectMany(pos =>
+                {
+                    Piece piece = Board[pos];
+                    return piece.GetMoves(pos, Board);
+                })
+                .Where(move => IsMoveSafe(move));
         }
 
-        private void CheckForGameOver()
+        private void CheckForGameOver(ChessClock clock = null) 
         {
             Console.WriteLine("Checking for game over...");
 
@@ -99,28 +97,31 @@ namespace ChessLogic
                     Console.WriteLine("Game Drawn: Stalemate");
                     result = Result.Draw(EndReasonn.Stalemate);
                 }
-                EndGame(); // 🔹 Stop the game!
+
+                EndGame();
+                clock?.StopClock(); 
                 return;
             }
 
-            else if (Board.InsufficientMaterial())
+            if (Board.InsufficientMaterial())
             {
                 Console.WriteLine("Game Drawn: Insufficient Material!");
                 result = Result.Draw(EndReasonn.InsufficientMaterial);
                 EndGame();
+                clock?.StopClock();
             }
-
             else if (FiftyMoveRule())
             {
                 result = Result.Draw(EndReasonn.FiftyMoveRule);
+                EndGame();
+                clock?.StopClock();
             }
-
             else if (ThreefoldRepetition())
             {
                 result = Result.Draw(EndReasonn.ThreeFoldRepetition);
+                EndGame();
+                clock?.StopClock();
             }
-
-
         }
 
         public bool IsGameOver()
@@ -130,35 +131,32 @@ namespace ChessLogic
 
         private void EndGame()
         {
-            //Console.WriteLine("Game Over: " + result.EndReas);
+            //Console.WriteLine("Game Over: " + result.EndReasonn);
         }
+
         private bool FiftyMoveRule()
         {
             int fullMoves = noCaptureOrPawnMoves / 2;
             return fullMoves == 50;
         }
 
-       
-
         private void UpdateStateString()
         {
             stateString = new StateString(CurrentPlayer, Board).ToString();
-
             if (!stateHistory.ContainsKey(stateString))
-            {
                 stateHistory[stateString] = 1;
-
-            }
             else
-            {
                 stateHistory[stateString]++;
-            }
         }
 
         private bool ThreefoldRepetition()
         {
             return stateHistory[stateString] == 3;
+        }
 
+        internal IEnumerable<object> GenerateLegalMoves()
+        {
+            throw new NotImplementedException();
         }
     }
 }

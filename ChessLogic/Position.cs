@@ -57,5 +57,12 @@
             // Add the direction deltas to the current position to get the new position
             return new Position(pos.Row + dir.RowDelta, pos.Column + dir.ColumnDelta);
         }
+        public string ToUCI()
+        {
+            char file = (char)('a' + Column);
+            char rank = (char)('1' + (7 - Row));
+            return $"{file}{rank}";
+        }
+
     }
 }

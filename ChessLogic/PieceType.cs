@@ -13,7 +13,7 @@ namespace ChessLogic
         Knight,
         Rook,
         Queen,
-        King
-
+        King,
+        None
     }
 }

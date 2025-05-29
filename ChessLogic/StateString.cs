@@ -8,17 +8,17 @@ namespace ChessLogic
 
         public StateString(Player CurrentPlayer, board board)
         {
-            //Piece Placement
+            
             AddPiecePlacement(board);
             sb.Append(' ');
-            //Current Player
+            
             AddCurrentPlayer(CurrentPlayer);
             sb.Append(' ');
-            //Castling Rights
+            
             AddCastlingRights(board);
 
             sb.Append(' ');
-            //EnPassant Data
+            
             AddEnPassant(board, CurrentPlayer);
 
 

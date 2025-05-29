@@ -35,11 +35,11 @@ namespace ChessLogic
         private IEnumerable<Position> MovePositions(Position from, board board)
         {
             return PotentialPositions(from)
-                .Where(pos => board.IsInside(pos) &&
+                .Where(pos => board.IsInside(0, pos) &&
                     (board.IsEmpty(pos) || board[pos].Color != Color));
         }
 
-        public override IEnumerable<Move> GetMoves(Position from, board board)
+        public override IEnumerable<Move> GetMoves(Position from, board board, bool forAttackOnly = false)
         {
             return MovePositions(from, board)
                 .Select(to => board.IsEmpty(to)
