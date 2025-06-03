@@ -1,0 +1,15 @@
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Release\net8.0\win-x64\ChessLogic.exe
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Release\net8.0\win-x64\ChessLogic.deps.json
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Release\net8.0\win-x64\ChessLogic.runtimeconfig.json
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Release\net8.0\win-x64\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Release\net8.0\win-x64\ChessLogic.pdb
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.AssemblyInfo.cs
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.sourcelink.json
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\refint\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.pdb
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ChessLogic.genruntimeconfig.cache
+C:\Users\USER\source\repos\ChessBot\ChessLogic\obj\Release\net8.0\win-x64\ref\ChessLogic.dll

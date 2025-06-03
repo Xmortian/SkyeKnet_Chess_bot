@@ -106,7 +106,9 @@ public static class BotDialogue
           
 
 
-        sequentialOpeningLines.Add(new DialogueItem("Currently, Majoring in CSE (Chess Science and Engineering) at Xmortian Chess Academy!", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Opening, "Opening"));
+        sequentialOpeningLines.Add(new DialogueItem("Currently, Majoring in CSE (Chess Science and Engineering) at Abed Chess Academy!", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Opening, "Opening"));
+        sequentialOpeningLines.Add(new DialogueItem("I serve the empire of AUCHC!", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Opening, "Opening"));
+
 
         sequentialOpeningLines.Add(new DialogueItem("My birthday is on 26th of May. Be sure to wish me on time! (-`‸´-)", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Opening, "Opening"));
 
@@ -132,7 +134,7 @@ public static class BotDialogue
 
 
 
-        conditionalDialogues.Add(new DialogueItem("Ahha, Dukkojonok.", (p, e, otl, lom, b, ap, iw, il) => e > 350 && p != GamePhase.Opening, "BlunderReaction"));
+        //conditionalDialogues.Add(new DialogueItem("Ahha, Dukkojonok.", (p, e, otl, lom, b, ap, iw, il) => e > 350 && p != GamePhase.Opening, "BlunderReaction"));
 
         conditionalDialogues.Add(new DialogueItem("Took you long enough.", (p, e, otl, lom, b, ap, iw, il) => otl, "OpponentSlow"));
 
@@ -140,16 +142,21 @@ public static class BotDialogue
 
 
 
-        conditionalDialogues.Add(new DialogueItem("My niece plays better than this. And she is still in the womb!.", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame && e > 150, "MidgameAIWinning"));
+        conditionalDialogues.Add(new DialogueItem("My niece plays better than this. And she is only 3!.", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame && e > 150, "MidgameAIWinning"));
 
         conditionalDialogues.Add(new DialogueItem("My CGPA may be low, but is your chess IQ even lower?", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame && e > 200, "MidgameAIWinning"));
 
         conditionalDialogues.Add(new DialogueItem("You play like you learned chess from Reels, and it shows.", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame && e > 100, "MidgameAIWinning"));
 
-        conditionalDialogues.Add(new DialogueItem("Game of Chess - Dumb Edition.", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame && e > 250, "MidgameAIWinning"));
+        conditionalDialogues.Add(new DialogueItem("...................", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame && e > 250, "MidgameAIWinning"));
 
         conditionalDialogues.Add(new DialogueItem("Y'all can't be playing checkers on a chessboard!", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame && e > 150, "MidgameAIWinning"));
 
+        conditionalDialogues.Add(new DialogueItem(
+            "Castle as much as you can! But your king is mine to take!",
+            (p, e, otl, lom, b, ap, iw, il) => lom != null &&
+                (lom.Type == MoveType.CastleKS || lom.Type == MoveType.CastleQS),
+            "OpponentCastled"));
 
 
         conditionalDialogues.Add(new DialogueItem("If this is how you play your life, I’d recommend a less competitive career, like dishwashing.", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Endgame && e > 150, "EndgameAIWinning"));
@@ -158,19 +165,34 @@ public static class BotDialogue
 
 
 
-        conditionalDialogues.Add(new DialogueItem("The Queen is a deadly laser!", (p, e, otl, lom, bd, ap, iw, il) => lom != null && ((bd[lom.ToPos] != null && bd[lom.ToPos].Type == PieceType.Queen) || (lom.Type == MoveType.PawnPromotion && IsPromotionToQueen(lom))), "QueenMove"));
+        conditionalDialogues.Add(new DialogueItem("The Queen is a deadly lazer!", (p, e, otl, lom, bd, ap, iw, il) => lom != null && ((bd[lom.ToPos] != null && bd[lom.ToPos].Type == PieceType.Queen) || (lom.Type == MoveType.PawnPromotion && IsPromotionToQueen(lom))), "QueenMove"));
 
+        conditionalDialogues.Add(new DialogueItem(
+            "I sometimes give away my queen to make a level playing field!",
+            (p, e, otl, lom, bd, ap, iw, il) => WasAIQueenCaptured(bd, ap),
+            "QueenLost"));
+
+        conditionalDialogues.Add(new DialogueItem(
+            "If the king does not lead, how can he expect his subordinates to follow? - Lelouch vi Britannia",
+            (phase, eval, opponentTookLong, lastMove, board, aiPlayer, isWin, isLoss) =>
+                lastMove != null &&
+                aiPlayer == Player.Black &&   // The bot is Black
+                board[lastMove.ToPos]?.Type == PieceType.King &&
+                lastMove.Type != MoveType.CastleKS &&
+                lastMove.Type != MoveType.CastleQS,
+            "BotKingMovedWithoutCastling"
+        ));
 
 
         conditionalDialogues.Add(new DialogueItem("Man, you play like Cappuccino Assassino ☠︎.", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame, "MidgameRandom"));
 
-        conditionalDialogues.Add(new DialogueItem("If the king does not lead, how can he expect his subordinates to follow? - Lelouch vi Britannia", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame, "MidgameRandom"));
+        //conditionalDialogues.Add(new DialogueItem("If the king does not lead, how can he expect his subordinates to follow? - Lelouch vi Britannia", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Middlegame, "MidgameRandom"));
 
         conditionalDialogues.Add(new DialogueItem("'Sacrifice the kinggggggggggggg!' ୧(๑•̀ᗝ•́)૭", (p, e, otl, lom, b, ap, iw, il) => p == GamePhase.Endgame, "EndgameRandom"));
 
 
 
-        randomFillerLines.Add(new DialogueItem("Show me what you got!", TrueCondition, "RandomFiller", 2));
+        randomFillerLines.Add(new DialogueItem("Is that all you got!", TrueCondition, "RandomFiller", 2));
 
         randomFillerLines.Add(new DialogueItem("Sting like a butterfly, move like a bee?", TrueCondition, "RandomFiller", 2));
 
@@ -186,13 +208,16 @@ public static class BotDialogue
 
         randomFillerLines.Add(new DialogueItem("Sheesh!", TrueCondition, "RandomFiller", 3));
 
-        randomFillerLines.Add(new DialogueItem("Fein move, brother!", TrueCondition, "RandomFiller", 3));
+        randomFillerLines.Add(new DialogueItem("Fein move brother!", TrueCondition, "RandomFiller", 3));
 
         randomFillerLines.Add(new DialogueItem("Hmmmm... interesting choice of play.", TrueCondition, "RandomFiller", 3));
 
         randomFillerLines.Add(new DialogueItem("Don't overcook that small brain of yours. One move at a time. (♯｀∧´)", TrueCondition, "RandomFiller", 2));
 
         randomFillerLines.Add(new DialogueItem("Cooking!!!", TrueCondition, "RandomFiller", 3));
+
+        randomFillerLines.Add(new DialogueItem("Even since that racism accusation, I started playing as black.", TrueCondition, "RandomFiller", 3));
+
 
         randomFillerLines.Add(new DialogueItem("Who let you cook, bro?!", TrueCondition, "RandomFiller", 3));
 
@@ -320,65 +345,57 @@ public static class BotDialogue
 
     public static string GetBotLine(GamePhase phase, int eval, bool opponentTookLong, Move lastOpponentMove, board currentBoard, Player aiPlayer, bool isWin, bool isLoss)
     {
-        
-        System.Diagnostics.Debug.WriteLine($"GetBotLine called with: phase={phase}, eval={eval}, opponentTookLong={opponentTookLong}");
-        string selectedLine = null;
+        Debug.WriteLine($"GetBotLine called with: phase={phase}, eval={eval}, opponentTookLong={opponentTookLong}");
 
-        
+        // 1. Game end
         if (isWin)
         {
-            selectedLine = SelectAndFinalize(winLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
-            if (selectedLine != null) return selectedLine;
+            var winLine = SelectAndFinalize(winLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
+            if (winLine != null) return winLine;
         }
 
         if (isLoss)
         {
-            selectedLine = SelectAndFinalize(lossLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
-            if (selectedLine != null) return selectedLine;
+            var lossLine = SelectAndFinalize(lossLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
+            if (lossLine != null) return lossLine;
         }
 
-        
+        // 2. First-time greeting
         if (!hasSaidGeneralIntro)
         {
-            hasSaidGeneralIntro = true;
-            selectedLine = SelectAndFinalize(initialGreetingLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
-            if (selectedLine != null) return selectedLine;
-        }
-
-        
-        if (phase == GamePhase.Opening)
-        {
-            var validOpeningLines = sequentialOpeningLines
-                .Where(item =>
-                    !IsShownMaxTimes(item) &&
-                    item.Condition(phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss))
-                .OrderBy(_ => Guid.NewGuid())
-                .Take(2)
-                .ToList();
-
-            if (validOpeningLines.Count > 0)
+            var greeting = SelectAndFinalize(initialGreetingLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
+            if (greeting != null)
             {
-                var randomOpeningLine = validOpeningLines[0];
-                FinalizeCooldownAndMark(randomOpeningLine.Text);
-                return randomOpeningLine.Text;
+                hasSaidGeneralIntro = true;
+                return greeting;
             }
         }
 
-
-        
-        selectedLine = SelectAndFinalize(conditionalDialogues, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
-        if (selectedLine != null) return selectedLine;
-
-        
-        if (cooldownTimer.ElapsedMilliseconds >= cooldownMilliseconds)
+        // 3. Sequential opening dialogue
+        if (phase == GamePhase.Opening && currentOpeningLineIndex < sequentialOpeningLines.Count)
         {
-            selectedLine = SelectAndFinalize(randomFillerLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
-            if (selectedLine != null) return selectedLine;
+            var nextLine = sequentialOpeningLines[currentOpeningLineIndex];
+            if (!IsShownMaxTimes(nextLine) && nextLine.Condition(phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss))
+            {
+                currentOpeningLineIndex++;
+                FinalizeCooldownAndMark(nextLine.Text);
+                return nextLine.Text;
+            }
         }
 
-        return null; 
-    }
+        // 4. Conditional taunts or tactical reactions
+        var conditional = SelectAndFinalize(conditionalDialogues, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
+        if (conditional != null) return conditional;
 
+        // 5. Random filler - cooldown applies
+        if (cooldownTimer.ElapsedMilliseconds >= cooldownMilliseconds)
+        {
+            var filler = SelectAndFinalize(randomFillerLines, phase, eval, opponentTookLong, lastOpponentMove, currentBoard, aiPlayer, isWin, isLoss);
+            if (filler != null) return filler;
+        }
+
+        return null;
+    }
 
 
 
@@ -407,6 +424,16 @@ public static class BotDialogue
         return opponentPieceCountNonKing <= 2;
 
     }
+    private static bool WasAIQueenCaptured(board bd, Player aiPlayer)
+    {
+        if (bd == null) return false;
+
+        int queenCount = bd.PiecePositionsFor(aiPlayer)
+            .Count(pos => bd[pos]?.Type == PieceType.Queen);
+
+        return queenCount == 0; 
+    }
+
 
 
 

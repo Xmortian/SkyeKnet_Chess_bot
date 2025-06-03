@@ -1,0 +1,2 @@
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Release\net8.0\win-x64\publish\ChessLogic.pdb
+C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Release\net8.0\win-x64\publish\ChessLogic.exe

@@ -252,23 +252,72 @@ namespace ChessLogic
 
         public bool IsSquareAttacked(Position square, Player attacker)
         {
-            for (int row = 0; row < 8; row++)
+            // Check pawn attacks
+            int pawnDir = attacker == Player.White ? -1 : 1;
+            Position[] pawnAttacks =
             {
-                for (int col = 0; col < 8; col++)
+        new Position(square.Row + pawnDir, square.Column - 1),
+        new Position(square.Row + pawnDir, square.Column + 1)
+    };
+
+            foreach (Position pos in pawnAttacks)
+            {
+                if (IsInside(0, pos) &&
+                    this[pos] is Pawn pawn &&
+                    pawn.Color == attacker)
                 {
-                    Position pos = new Position(row, col);
+                    return true;
+                }
+            }
+
+            // Check bishop/queen diagonals
+            Direction[] bishopDirs =
+            {
+        Direction.NorthWest, Direction.NorthEast,
+        Direction.SouthWest, Direction.SouthEast
+    };
+
+            foreach (Direction dir in bishopDirs)
+            {
+                for (int i = 1; i < 8; i++)
+                {
+                    Position pos = square + i * dir;
+                    if (!IsInside(0, pos)) break;
+
                     Piece piece = this[pos];
-                    if (piece != null && piece.Color == attacker)
+                    if (piece == null) continue;
+
+                    if (piece.Color == attacker &&
+                        (piece.Type == PieceType.Bishop ||
+                         piece.Type == PieceType.Queen))
                     {
-                        foreach (Move move in piece.GetMoves(pos, this, true)) 
-                        {
-                            if (move.ToPos.Equals(square))
-                                return true;
-                        }
+                        return true;
+                    }
+                    break; // Blocked path
+                }
+            }
+
+            // ... add other piece checks ...
+            return false;
+        }
+        public int CountAttackers(Position square, Player attackerColor)
+        {
+            int count = 0;
+            foreach (Position pos in PiecePositionsFor(attackerColor))
+            {
+                Piece piece = this[pos];
+                if (piece == null) continue;
+
+                foreach (Move move in piece.GetMoves(pos, this, true))
+                {
+                    if (move.ToPos.Equals(square))
+                    {
+                        count++;
+                        break;
                     }
                 }
             }
-            return false;
+            return count;
         }
 
     }

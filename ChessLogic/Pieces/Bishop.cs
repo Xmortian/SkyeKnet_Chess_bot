@@ -26,10 +26,11 @@ namespace ChessLogic
             return copy;
         }
 
+
         public override IEnumerable<Move> GetMoves(Position from, board board, bool forAttackOnly = false)
         {
             return MovePositionsDirs(from, board, dirs)
-                .Select(to => board.IsEmpty(to)         
+                .Select(to => board.IsEmpty(to)
                     ? (Move)new NormalMove(from, to)
                     : new CaptureMove(from, to));
         }

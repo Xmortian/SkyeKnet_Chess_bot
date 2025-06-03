@@ -119,13 +119,28 @@ namespace ChessLogic
         {
             if (forAttackOnly)
             {
-                return DiagonalMoves(from, board, true);
+                // When checking for attacks only, pawns only "attack" via diagonal captures.
+                // DiagonalMoves with forAttackOnly=true correctly yields moves only if an enemy piece is present.
+                foreach (var move in DiagonalMoves(from, board, true))
+                {
+                    yield return move;
+                }
+                yield break;
             }
             else
             {
-                return ForwardMoves(from, board).Concat(DiagonalMoves(from, board, false));
+                // For generating all legal moves:
+                foreach (var move in ForwardMoves(from, board))
+                {
+                    yield return move;
+                }
+                foreach (var move in DiagonalMoves(from, board, false)) // 'false' allows en-passant and regular captures
+                {
+                    yield return move;
+                }
             }
         }
+
 
         public override bool CanCaptureOpponentKing(Position from, board board)
         {

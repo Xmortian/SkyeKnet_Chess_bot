@@ -1,0 +1,3 @@
+C:\Users\USER\source\repos\ChessBot\publish\ChessUI.pdb
+C:\Users\USER\source\repos\ChessBot\publish\ChessLogic.pdb
+C:\Users\USER\source\repos\ChessBot\publish\ChessUI.exe

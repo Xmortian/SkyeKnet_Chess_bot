@@ -1,0 +1,374 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\USER\\source\\repos\\ChessBot\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\stateofgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\stateofgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\evaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\evaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\moveordering.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\moveordering.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\quiescencesearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\quiescencesearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\chessai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\chessai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\pieces\\bishop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\pieces\\bishop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\pieces\\pawn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\pieces\\pawn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\moves\\castle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\moves\\castle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\moves\\moveexecution.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\moves\\moveexecution.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\pieces\\piece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\pieces\\piece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\pieces\\queen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\pieces\\queen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\pieces\\rook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\pieces\\rook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\movetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\movetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\openingbooks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\openingbooks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|c:\\users\\user\\source\\repos\\chessbot\\chessui\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|solutionrelative:chessui\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|c:\\users\\user\\source\\repos\\chessbot\\chesslogic\\core\\ai\\botdialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C14A2D6C-CC8A-4826-A5B5-9F6EB30CF011}|ChessLogic\\ChessLogic.csproj|solutionrelative:chesslogic\\core\\ai\\botdialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|c:\\users\\user\\source\\repos\\chessbot\\chessui\\assets\\chess_pdt60.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|solutionrelative:chessui\\assets\\chess_pdt60.png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|c:\\users\\user\\source\\repos\\chessbot\\chessui\\images.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|solutionrelative:chessui\\images.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|c:\\users\\user\\source\\repos\\chessbot\\chessui\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|solutionrelative:chessui\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|c:\\users\\user\\source\\repos\\chessbot\\chessui\\chessui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{325C4829-C6A5-4DF7-B4CC-BF60F4051FD3}|ChessUI\\ChessUI.csproj|solutionrelative:chessui\\chessui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.101\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Castle.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Moves\\Castle.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Moves\\Castle.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Moves\\Castle.cs",
+              "RelativeToolTip": "ChessLogic\\Moves\\Castle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:05:28.834Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Bishop.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Bishop.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Pieces\\Bishop.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Bishop.cs",
+              "RelativeToolTip": "ChessLogic\\Pieces\\Bishop.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:05:16.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Pawn.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Pawn.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Pieces\\Pawn.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Pawn.cs",
+              "RelativeToolTip": "ChessLogic\\Pieces\\Pawn.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:05:09.996Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MoveOrdering.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\MoveOrdering.cs",
+              "ViewState": "AgIAACUBAAAAAAAAAAAUwCkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T11:41:35.345Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CHESSAI.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\CHESSAI.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\CHESSAI.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\CHESSAI.cs",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\CHESSAI.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAgwAUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T11:40:32.462Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "QuieScenceSearch.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\QuieScenceSearch.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\QuieScenceSearch.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\QuieScenceSearch.cs",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\QuieScenceSearch.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwBYAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T11:42:18.576Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EVALUATOR.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\EVALUATOR.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\EVALUATOR.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\EVALUATOR.cs",
+              "RelativeToolTip": "ChessLogic\\EVALUATOR.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAswIkAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T11:42:48.658Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Program.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Program.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Program.cs",
+              "RelativeToolTip": "ChessLogic\\Program.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAA6wBAAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:03:59.262Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StateOfGame.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\StateOfGame.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\StateOfGame.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\StateOfGame.cs",
+              "RelativeToolTip": "ChessLogic\\StateOfGame.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAlwFwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:03:14.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MoveExecution.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Moves\\MoveExecution.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Moves\\MoveExecution.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Moves\\MoveExecution.cs",
+              "RelativeToolTip": "ChessLogic\\Moves\\MoveExecution.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:05:19.54Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Piece.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Piece.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Pieces\\Piece.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Piece.cs",
+              "RelativeToolTip": "ChessLogic\\Pieces\\Piece.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:05:07.372Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Queen.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Queen.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Pieces\\Queen.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Queen.cs",
+              "RelativeToolTip": "ChessLogic\\Pieces\\Queen.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:05:00.509Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Rook.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Rook.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Pieces\\Rook.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Pieces\\Rook.cs",
+              "RelativeToolTip": "ChessLogic\\Pieces\\Rook.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:04:25.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MoveType.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\MoveType.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\MoveType.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\MoveType.cs",
+              "RelativeToolTip": "ChessLogic\\MoveType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:04:18.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "OPENINGBOOKS.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\OPENINGBOOKS.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\OPENINGBOOKS.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\OPENINGBOOKS.cs",
+              "RelativeToolTip": "ChessLogic\\OPENINGBOOKS.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T18:04:02.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Chess_pdt60.png",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\Assets\\Chess_pdt60.png",
+              "RelativeDocumentMoniker": "ChessUI\\Assets\\Chess_pdt60.png",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\Assets\\Chess_pdt60.png",
+              "RelativeToolTip": "ChessUI\\Assets\\Chess_pdt60.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-06-03T17:56:21.391Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Images.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\Images.cs",
+              "RelativeDocumentMoniker": "ChessUI\\Images.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\Images.cs",
+              "RelativeToolTip": "ChessUI\\Images.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T17:56:15.718Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "ChessUI\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\MainWindow.xaml.cs",
+              "RelativeToolTip": "ChessUI\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-02T10:32:23.631Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "ChessUI\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\MainWindow.xaml",
+              "RelativeToolTip": "ChessUI\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-02T10:35:02.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BotDialogue.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "RelativeDocumentMoniker": "ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "RelativeToolTip": "ChessLogic\\Core\\AI\\BotDialogue.cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAADwv7EBAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-01T12:20:03.205Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ChessUI.csproj",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\ChessUI.csproj",
+              "RelativeDocumentMoniker": "ChessUI\\ChessUI.csproj",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\ChessBot\\ChessUI\\ChessUI.csproj",
+              "RelativeToolTip": "ChessUI\\ChessUI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-02T13:20:24.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Microsoft.NET.Sdk.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.101\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.101\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.targets",
+              "ViewState": "AgIAAE0FAAAAAAAAAAAWwF8FAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-06-02T13:48:22.09Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

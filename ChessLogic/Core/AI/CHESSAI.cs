@@ -1,24 +1,28 @@
-﻿using ChessLogic;
+﻿
+using ChessLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-using ChessLogic.Core.Ai; 
+using ChessLogic.Core.Ai;
 
 public class ChessAI
 {
-    private readonly int maxSearchDepth;
-    private readonly Player aiPlayer;
+    public readonly int maxSearchDepth;
+    public readonly Player aiPlayer;
     private readonly List<string> moveHistory = new();
-    
-    
+    private int nodesSearched = 0;
+
+
+    private bool gameEnded = false;
+
     private readonly int timeLimitMs = 5000;
     private static Stopwatch turnStopwatch;
 
     private DateTime lastOpponentMoveTime = DateTime.UtcNow;
-    private Move lastOpponentMove; 
+    private Move lastOpponentMove;
 
-    public ChessAI(Player aiPlayer, int depth = 15)
+    public ChessAI(Player aiPlayer, int depth = 12)
     {
         this.aiPlayer = aiPlayer;
         this.maxSearchDepth = depth;
@@ -26,8 +30,8 @@ public class ChessAI
 
     private bool IsCapture(Move move, board board)
     {
-        
-        
+
+
         if (move.ToPos == null || !(move.ToPos.Row >= 0 && move.ToPos.Row < 8 && move.ToPos.Column >= 0 && move.ToPos.Column < 8))
         {
             return false;
@@ -37,55 +41,79 @@ public class ChessAI
 
     public Move GetBestMove(StateOfGame gameState)
     {
-        
-        
-        
+
+        if (gameEnded || gameState.IsGameOver())
+        {
+            //Debug.WriteLine("[AI] Game ended - no move generated");
+            return null;
+        }
+
+
 
         turnStopwatch = Stopwatch.StartNew();
         Move bestMoveOverall = null;
         int bestScoreOverall = int.MinValue;
 
 
-        string bookMoveUci = OpeningBook.GetBookMove(moveHistory);
-        if (bookMoveUci != null)
+        string bookMoveSuggestionUci = OpeningBook.GetBookMove(gameState.MoveHistoryUCI);
+
+        if (bookMoveSuggestionUci != null)
         {
-            var legalMovesFromBook = gameState.AllLegalMovesFor(gameState.CurrentPlayer).ToList();
-            var matchingMove = legalMovesFromBook.FirstOrDefault(move => move.ToUCI() == bookMoveUci);
-            if (matchingMove != null)
+            //Debug.WriteLine($"[AI BookCheck] Book suggested: {bookMoveSuggestionUci}");
+            var legalMovesForCurrentAIPlayer = gameState.AllLegalMovesFor(gameState.CurrentPlayer).ToList();
+            Move moveToPlay = null;
+
+            // 2. Attempt to find an EXACT match for the book move among all legal moves.
+            moveToPlay = legalMovesForCurrentAIPlayer.FirstOrDefault(legalMove => legalMove.ToUCI() == bookMoveSuggestionUci);
+
+            if (moveToPlay != null)
             {
-                moveHistory.Add(bookMoveUci);
-                turnStopwatch.Stop();
-                Console.WriteLine($"Bot plays book move: {matchingMove.ToUCI()}");
-                return matchingMove;
+                //Debug.WriteLine($"[AI BookCheck] Exact book move found and is legal: {moveToPlay.ToUCI()}");
+            }
+            else
+            {
+                //Debug.WriteLine($"[AI BookCheck] Exact book move '{bookMoveSuggestionUci}' not found or not legal. Trying partial match...");
+
+                string bookMoveBase = bookMoveSuggestionUci.Substring(0, Math.Min(bookMoveSuggestionUci.Length, 4));
+                moveToPlay = legalMovesForCurrentAIPlayer.FirstOrDefault(legalMove => legalMove.ToUCI().StartsWith(bookMoveBase));
+
+                if (moveToPlay != null)
+                {
+                    //Debug.WriteLine($"[AI BookCheck] Partial book move match found and is legal: {moveToPlay.ToUCI()}");
+                }
             }
 
-            foreach (var move in legalMovesFromBook)
+            // 4. If a playable move (either exact or partial) was found:
+            if (moveToPlay != null)
             {
-                if (move.ToUCI().StartsWith(bookMoveUci.Substring(0, Math.Min(bookMoveUci.Length, 4))))
-                {
-                    moveHistory.Add(move.ToUCI());
-                    turnStopwatch.Stop();
-                    Console.WriteLine($"Bot plays book move (partial match): {move.ToUCI()}");
-                    return move;
-                }
+                //Debug.WriteLine($"[AI Plays BookMove] Playing: {moveToPlay.ToUCI()}");
+
+
+
+                return moveToPlay;    // Return the chosen book move.
+            }
+            else
+            {
+                //Debug.WriteLine($"[AI BookCheck] Book suggested '{bookMoveSuggestionUci}', but no matching legal move found. Proceeding to search.");
             }
         }
 
-        Console.WriteLine($"AI ({aiPlayer}) searching with max depth: {maxSearchDepth}");
+
+        //Debug.WriteLine($"AI ({aiPlayer}) searching with max depth: {maxSearchDepth}");
 
         for (int currentDepth = 1; currentDepth <= maxSearchDepth; currentDepth++)
         {
             if (StopwatchElapsed())
             {
-                Console.WriteLine($"Time limit reached before starting depth {currentDepth}. Using best move from depth {currentDepth - 1}.");
+                //Debug.WriteLine($"Time limit reached before starting depth {currentDepth}. Using best move from depth {currentDepth - 1}.");
                 break;
             }
-            Console.WriteLine($"Searching depth: {currentDepth}");
+            //Debug.WriteLine($"Searching depth: {currentDepth}");
 
             int bestScoreThisIteration = int.MinValue;
             Move bestMoveThisIteration = null;
 
-            
+
             var moves = MoveOrdering.OrderMoves(gameState.AllLegalMovesFor(aiPlayer), gameState.Board, currentDepth).ToList();
             if (!moves.Any()) break;
 
@@ -101,12 +129,12 @@ public class ChessAI
             {
                 if (StopwatchElapsed())
                 {
-                    Console.WriteLine($"Time limit reached during depth {currentDepth}.");
+                    //Debug.WriteLine($"Time limit reached during depth {currentDepth}.");
                     goto EndSearch;
                 }
 
                 var copy = gameState.Board.Copy();
-                if (move.IsLegal(copy))  
+                if (move.IsLegal(copy))
                 {
                     move.Execute(copy);
                     int score = Minimax(copy, currentDepth - 1, int.MinValue, int.MaxValue, false, 0);
@@ -117,7 +145,7 @@ public class ChessAI
                     }
 
                 }
-                
+
 
 
             }
@@ -126,7 +154,7 @@ public class ChessAI
             {
                 bestMoveOverall = bestMoveThisIteration;
                 bestScoreOverall = bestScoreThisIteration;
-                Console.WriteLine($"Depth {currentDepth} completed. Best move so far: {bestMoveOverall.ToUCI()} (Score: {bestScoreOverall})");
+                Debug.WriteLine($"Depth {currentDepth} completed. Best move so far: {bestMoveOverall.ToUCI()} (Score: {bestScoreOverall})");
             }
             else if (StopwatchElapsed() && bestMoveThisIteration == null && bestMoveOverall == null && moves.Any())
             {
@@ -134,13 +162,13 @@ public class ChessAI
                 var tempBoard = gameState.Board.Copy();
                 bestMoveOverall.Execute(tempBoard);
                 bestScoreOverall = Evaluator.Evaluate(tempBoard, aiPlayer);
-                Console.WriteLine($"Time out very early, fallback to first legal move: {bestMoveOverall.ToUCI()} with score {bestScoreOverall}");
+                //Debug.WriteLine($"Time out very early, fallback to first legal move: {bestMoveOverall.ToUCI()} with score {bestScoreOverall}");
             }
         }
 
     EndSearch:
         turnStopwatch.Stop();
-        Console.WriteLine($"Search took: {turnStopwatch.ElapsedMilliseconds}ms");
+        Debug.WriteLine($"Search took: {turnStopwatch.ElapsedMilliseconds}ms");
 
         if (bestMoveOverall == null)
         {
@@ -151,49 +179,59 @@ public class ChessAI
                 var tempBoard = gameState.Board.Copy();
                 bestMoveOverall.Execute(tempBoard);
                 bestScoreOverall = Evaluator.Evaluate(tempBoard, aiPlayer);
-                Console.WriteLine($"Search failed to find a move or timed out completely. Fallback to first legal move: {bestMoveOverall.ToUCI()} with score {bestScoreOverall}");
+                Debug.WriteLine($"Search failed to find a move or timed out completely. Fallback to first legal move: {bestMoveOverall.ToUCI()} with score {bestScoreOverall}");
             }
         }
 
         if (bestMoveOverall != null)
         {
             moveHistory.Add(bestMoveOverall.ToUCI());
-            if (bestScoreOverall == int.MinValue) 
+            //Debug.WriteLine($"[AI Move] Chose normal move: {bestMoveOverall.ToUCI()}");
+            if (bestScoreOverall == int.MinValue)
             {
                 var tempBoardEval = gameState.Board.Copy();
                 bestMoveOverall.Execute(tempBoardEval);
                 bestScoreOverall = Evaluator.Evaluate(tempBoardEval, aiPlayer);
             }
 
-            
+
             string botLine = BotDialogue.GetBotLine(
                 phase: GetPhase(gameState.Board),
                 eval: bestScoreOverall,
                 opponentTookLong: OpponentTookTooLong(),
-                lastOpponentMove: GetLastOpponentMove() ?? bestMoveOverall, 
-                currentBoard: gameState.Board, 
-                aiPlayer: this.aiPlayer,       
-                isWin: gameState.IsGameOver() && gameState.result != null && gameState.result.Winner == aiPlayer,
-                isLoss: gameState.IsGameOver() && gameState.result != null && gameState.result.Winner == aiPlayer.Opponent()
+                lastOpponentMove: GetLastOpponentMove() ?? bestMoveOverall,
+                currentBoard: gameState.Board,
+                aiPlayer: this.aiPlayer,
+                isWin: false,  
+                isLoss: false  
             );
-            if (!string.IsNullOrWhiteSpace(botLine))
-                Console.WriteLine($"Bot says: \"{botLine}\"");
+            if (!string.IsNullOrWhiteSpace(botLine)) ;
+                //Debug.WriteLine($"Bot says: \"{botLine}\"");
         }
         else
         {
-            Console.WriteLine("AI could not find a legal move (e.g., stalemate/checkmate already processed or error).");
+            //Debug.WriteLine("AI could not find a legal move (e.g., stalemate/checkmate already processed or error).");
         }
+        Debug.WriteLine($"[Search Complete] Nodes searched: {nodesSearched}");
+        nodesSearched = 0; // Reset for next move
 
         return bestMoveOverall;
     }
 
     private int Minimax(board board, int depth, int alpha, int beta, bool maximizing, int currentPlyFromRoot)
     {
-        if (StopwatchElapsed()) 
-            return Evaluator.Evaluate(board, aiPlayer); 
-
         Player currentPlayerToEvaluate = maximizing ? aiPlayer : aiPlayer.Opponent();
-        StateOfGame state = new StateOfGame(currentPlayerToEvaluate, board);
+        // Faster creation without triggering StateString
+        StateOfGame state = new StateOfGame(currentPlayerToEvaluate, board, false);
+        var legalMoves = state.AllLegalMovesFor(currentPlayerToEvaluate).ToList();
+        if (StopwatchElapsed())
+        {
+            //Debug.WriteLine($"[Time Check] Timeout at depth={depth}, ply={currentPlyFromRoot}, nodes={nodesSearched}");
+            return Evaluator.Evaluate(board, aiPlayer, legalMoves);
+        }
+
+        nodesSearched++; // ✅ Count each node evaluated
+
 
         ulong hash = ZobristHasher.ComputeHash(board, currentPlayerToEvaluate);
         int alphaOrig = alpha;
@@ -203,19 +241,20 @@ public class ChessAI
             return ttScore;
         }
 
-        var legalMoves = state.AllLegalMovesFor(currentPlayerToEvaluate).ToList();
 
-        if (depth == 0 || !legalMoves.Any())
+        if (!legalMoves.Any())
         {
-            if (!legalMoves.Any()) 
-            {
-                if (state.Board.IsInCheck(currentPlayerToEvaluate)) 
-                    return maximizing ? (-CheckmateScore + currentPlyFromRoot) : (CheckmateScore - currentPlyFromRoot);
-                else 
-                    return 0;
-            }
-            
-            int quietScore = QuiescenceSearcher.Quiescence(state, alpha, beta, currentPlayerToEvaluate);
+            // Game over due to checkmate or stalemate
+            if (board.IsInCheck(currentPlayerToEvaluate))
+                return maximizing ? (-CheckmateScore + currentPlyFromRoot) : (CheckmateScore - currentPlyFromRoot);
+            else
+                return 0; // Stalemate
+        }
+        else if (depth == 0)
+        {
+            int quietScore = QuiescenceSearcher.Quiescence(
+                new StateOfGame(currentPlayerToEvaluate, board), alpha, beta, currentPlayerToEvaluate
+            );
             TranspositionTable.Store(hash, depth, quietScore, NodeType.Exact);
             return quietScore;
         }
@@ -223,14 +262,35 @@ public class ChessAI
         int bestEval = maximizing ? int.MinValue : int.MaxValue;
         var orderedMoves = MoveOrdering.OrderMoves(legalMoves, board, currentPlyFromRoot);
 
+        if (orderedMoves.Count > 25 && depth >= 3)
+        {
+            orderedMoves = orderedMoves.Take(15).ToList();
+        }
+
+
+        int moveIndex = 0;
+
         foreach (var move in orderedMoves)
         {
-            if (StopwatchElapsed()) break; 
+            if (StopwatchElapsed()) break;
 
-            var copy = board.Copy();
-            move.Execute(copy);
+            var tempBoard = board.Copy();
+            move.Execute(tempBoard);
 
-            int eval = Minimax(copy, depth - 1, alpha, beta, !maximizing, currentPlyFromRoot + 1);
+            int searchDepth = depth - 1;
+
+            bool isQuiet = !IsCapture(move, board);
+            if (moveIndex >= 3 && depth >= 3 && isQuiet)
+            {
+                searchDepth -= 1;
+            }
+
+            int eval = Minimax(tempBoard, searchDepth, alpha, beta, !maximizing, currentPlyFromRoot + 1);
+
+            if (searchDepth < depth - 1 && ((maximizing && eval > alpha) || (!maximizing && eval < beta)))
+            {
+                eval = Minimax(tempBoard, depth - 1, alpha, beta, !maximizing, currentPlyFromRoot + 1);
+            }
 
             if (maximizing)
             {
@@ -241,7 +301,7 @@ public class ChessAI
                     MoveOrdering.AddHistoryBonus(move, depth);
                 }
             }
-            else 
+            else
             {
                 if (eval < bestEval) bestEval = eval;
                 if (eval < beta)
@@ -251,27 +311,30 @@ public class ChessAI
                 }
             }
 
-            if (beta <= alpha) 
+            if (beta <= alpha)
             {
-                if (!IsCapture(move, board)) 
-                {
+                if (isQuiet)
                     MoveOrdering.StoreKillerMove(move, currentPlyFromRoot);
-                }
                 break;
             }
+
+            moveIndex++;
         }
+
 
         NodeType nodeType = NodeType.Exact;
         if (bestEval <= alphaOrig) nodeType = NodeType.UpperBound;
         else if (bestEval >= beta) nodeType = NodeType.LowerBound;
 
         TranspositionTable.Store(hash, depth, bestEval, nodeType);
+        //Debug.WriteLine($"[Depth={depth}, Ply={currentPlyFromRoot}] Nodes so far: {nodesSearched}"); I will come back to it later on
+
         return bestEval;
     }
 
     private const int CheckmateScore = 99999;
 
-    public static bool StopwatchElapsed() 
+    public static bool StopwatchElapsed()
     {
 
         return turnStopwatch != null && turnStopwatch.ElapsedMilliseconds >= 8000;
@@ -311,5 +374,21 @@ public class ChessAI
     private Move GetLastOpponentMove()
     {
         return lastOpponentMove;
+    }
+    public void NotifyGameEnded(bool aiWon)
+    {
+        gameEnded = true;
+        moveHistory.Clear();
+        lastOpponentMove = null;
+        lastOpponentMoveTime = DateTime.UtcNow;
+    }
+
+    public void ResetForNewGame()
+    {
+        gameEnded = false;
+        moveHistory.Clear();
+        lastOpponentMove = null;
+        lastOpponentMoveTime = DateTime.UtcNow;
+        nodesSearched = 0;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using ChessLogic;
 
@@ -13,18 +14,19 @@ namespace ChessLogic.Core.Ai
         private static readonly Dictionary<int, List<Move>> KillerMoves = new();
         private static readonly Dictionary<(Position from, Position to), int> HistoryHeuristic = new();
 
-        private const int SEEWinningCaptureBias = 1200000; 
-        private const int CaptureBias = 1000000;         
-        private const int PromotionBias = 950000;        
-        private const int KillerMoveBonus = 80000;
-        private const int CheckBonus = 60000;            
-        private const int CastleBonus = 30000;
-        private const int PassedPawnPushBonus = 25000;   
-        private const int CenterControlBonus = 1500;     
 
-        
+        private const int SEEWinningCaptureBias = 500;   
+        private const int CaptureBias = 900;              
+        private const int PromotionBias = 950;            
+        private const int KillerMoveBonus = 100;           
+        private const int CheckBonus = 30;                
+        private const int CastleBonus = 300;
+        private const int PassedPawnPushBonus = 30;
+        private const int CenterControlBonus = 20;
+
+
         private static readonly int[] see_piece_values = {
-            0, 
+            0,
             Evaluator.GetPieceValue(PieceType.Pawn), Evaluator.GetPieceValue(PieceType.Knight),
             Evaluator.GetPieceValue(PieceType.Bishop), Evaluator.GetPieceValue(PieceType.Rook),
             Evaluator.GetPieceValue(PieceType.Queen), Evaluator.GetPieceValue(PieceType.King)
@@ -48,88 +50,93 @@ namespace ChessLogic.Core.Ai
 
             if (movingPiece == null) return 0;
 
-            
+
+            // 7. Castle bonus
+            // 7. Castle bonus
+            if (move.Type == MoveType.CastleKS || move.Type == MoveType.CastleQS)
+            {
+                //Debug.WriteLine($"♜ Castling detected at ply {ply} → Move: {move}");
+                score += CastleBonus;
+                //Debug.WriteLine($"♜ Castling move found: {move.ToUCI()}, Score: {score}");
+            }
+
+            // 6. Penalize king moves in the opening (if not castling)
+            if (KingJustMoved(move, board, ply))
+            {
+                score -= 500; // Reasonable penalty in opening
+            }
+
+            // 1. SEE-based capture scoring
             if (targetPiece != null)
             {
                 int seeValue = StaticExchangeEvaluation(move.ToPos, board);
-                if (seeValue > 0) 
+                if (seeValue > 0)
                 {
-                    score = 50000 + (seeValue * 10);  
+                    score += SEEWinningCaptureBias + (seeValue / 2);
                 }
-                else 
+                else
                 {
-                    score = -30000 - (Math.Abs(seeValue) * 10);  
-
-                    
-                    if (seeValue == 0)
-                    {
-                        score = 10000 + (Evaluator.GetPieceValue(targetPiece.Type) * 10
-                                 - Evaluator.GetPieceValue(movingPiece.Type));
-                    }
+                    // Penalize bad trades but don't overdo it
+                    score += seeValue;
                 }
             }
 
-            
+            // 2. Promotion bonus (added to SEE if already a capture)
             if (move.Type == MoveType.PawnPromotion)
             {
-                score = 100000;  
+                score += PromotionBias;
             }
 
-            
+            // 3. Killer move bonus (quiet move only)
             if (targetPiece == null)
             {
                 if (KillerMoves.TryGetValue(ply, out var killers) && killers.Any(k => SameMove(k, move)))
                 {
-                    score += 8000;  
+                    score += KillerMoveBonus;
                 }
             }
 
-            
+            // 4. History heuristic
             var key = (move.FromPos, move.ToPos);
             if (HistoryHeuristic.TryGetValue(key, out int historyScore))
             {
-                score += historyScore * 2;  
+                score += historyScore;
             }
 
-            
+            // 5. Check bonus
             if (GivesCheck(move, board))
             {
-                score += (ply < 3) ? 40000 : 6000;  
+                score += CheckBonus;
             }
 
-            
-            if (move.Type == MoveType.CastleKS || move.Type == MoveType.CastleQS)
-            {
-                score += 5000;
-            }
 
-            
+
+            // 8. Passed pawn push
             if (movingPiece.Type == PieceType.Pawn && targetPiece == null)
             {
                 if (IsPassedPawnPush(move, board))
                 {
-                    score += 2500;
-                    
-                    if ((movingPiece.Color == Player.White && move.ToPos.Row == 1) ||
-                        (movingPiece.Color == Player.Black && move.ToPos.Row == 6))
+                    score += PassedPawnPushBonus;
+
+                    // Extra bonus if it's an advanced push
+                    if ((movingPiece.Color == Player.White && move.ToPos.Row <= 2) ||
+                        (movingPiece.Color == Player.Black && move.ToPos.Row >= 5))
                     {
-                        score += 2500;
+                        score += PassedPawnPushBonus;
                     }
                 }
             }
 
-            
+            // 9. Central square control
             if (CenterSquares.Contains(move.ToPos))
             {
-                score += 1500;
+                score += CenterControlBonus;
             }
 
             return score;
         }
 
-        
-        
-        
+
         private static int StaticExchangeEvaluation(Position targetSquare, board board)
         {
             if (board[targetSquare] == null) return 0;
@@ -139,7 +146,7 @@ namespace ChessLogic.Core.Ai
             int[] values = see_piece_values;
             List<Piece> attackers = new List<Piece>();
 
-            
+
             for (int r = 0; r < 8; r++)
             {
                 for (int c = 0; c < 8; c++)
@@ -148,7 +155,7 @@ namespace ChessLogic.Core.Ai
                     Piece p = board[pos];
                     if (p == null) continue;
 
-                    
+
                     if (board.IsSquareAttacked(targetSquare, p.Color))
                     {
                         attackers.Add(p);
@@ -158,7 +165,7 @@ namespace ChessLogic.Core.Ai
 
             if (attackers.Count == 0) return 0;
 
-            
+
             attackers.Sort((a, b) => values[(int)a.Type].CompareTo(values[(int)b.Type]));
 
             while (attackers.Count > 0)
@@ -185,14 +192,14 @@ namespace ChessLogic.Core.Ai
             Position attackerBestPos = null;
             int minAttackerValue = int.MaxValue;
 
-            
+
             foreach (Position p in currentBoard.PiecePositionsFor(attackerSide))
             {
                 Piece piece = currentBoard[p];
                 if (piece == null) continue;
 
-              
-                IEnumerable<Move> attackerMoves = piece.GetMoves(p, currentBoard); 
+
+                IEnumerable<Move> attackerMoves = piece.GetMoves(p, currentBoard);
                 foreach (Move potentialAttack in attackerMoves)
                 {
                     if (potentialAttack.ToPos.Equals(targetSquare))
@@ -204,25 +211,25 @@ namespace ChessLogic.Core.Ai
                             leastValuableAttacker = piece;
                             attackerBestPos = p;
                         }
-                        break; 
+                        break;
                     }
                 }
             }
 
-            if (leastValuableAttacker == null) 
+            if (leastValuableAttacker == null)
             {
                 return 0;
             }
 
-            
+
             board nextBoard = currentBoard.Copy();
-            Piece pieceOnTarget = nextBoard[targetSquare]; 
+            Piece pieceOnTarget = nextBoard[targetSquare];
             int capturedValue = (pieceOnTarget != null) ? see_piece_values[(int)pieceOnTarget.Type] : 0;
 
             nextBoard[targetSquare] = leastValuableAttacker;
             nextBoard[attackerBestPos] = null;
 
-            
+
             return Math.Max(0, capturedValue - SeeRecursive(targetSquare, attackerSide.Opponent(), nextBoard));
         }
 
@@ -253,7 +260,7 @@ namespace ChessLogic.Core.Ai
         }
         private static bool SameMove(Move a, Move b)
         {
-            return a.FromPos.Equals(b.FromPos) && a.ToPos.Equals(b.ToPos) && a.Type == b.Type; 
+            return a.FromPos.Equals(b.FromPos) && a.ToPos.Equals(b.ToPos) && a.Type == b.Type;
         }
         public static void StoreKillerMove(Move move, int ply)
         { /* As before */
@@ -264,6 +271,21 @@ namespace ChessLogic.Core.Ai
                 KillerMoves[ply].Add(move);
             }
         }
+
+
+        public static bool KingJustMoved(Move move, board board, int ply)
+        {
+            if (ply > 20)
+                return false;
+
+            Piece movedPiece = board[move.FromPos];
+            return movedPiece?.Type == PieceType.King
+                && move.Type != MoveType.CastleKS
+                && move.Type != MoveType.CastleQS;
+        }
+
+
+
         public static void AddHistoryBonus(Move move, int plyFromRoot)
         { /* As before */
             var key = (move.FromPos, move.ToPos); int bonus = (plyFromRoot + 1) * (plyFromRoot + 1);
@@ -272,3 +294,4 @@ namespace ChessLogic.Core.Ai
         public static void ClearHistoryAndKillers() { KillerMoves.Clear(); HistoryHeuristic.Clear(); }
     }
 }
+

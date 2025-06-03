@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ChessLogic</id>
+    <version>1.0.0</version>
+    <authors>ChessLogic</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="86cef7a4bafe2be33ffa6cdc69c5afb71d8b457e" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Debug\net8.0\ChessLogic.runtimeconfig.json" target="lib\net8.0\ChessLogic.runtimeconfig.json" />
+    <file src="C:\Users\USER\source\repos\ChessBot\ChessLogic\bin\Debug\net8.0\ChessLogic.dll" target="lib\net8.0\ChessLogic.dll" />
+  </files>
+</package>

@@ -6,12 +6,19 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+	<ApplicationIcon>Assets\Chess_bot_dp.ico</ApplicationIcon>
+	  <SelfContained>false</SelfContained>
+	  <PublishSingleFile>false</PublishSingleFile>
+	  <PublishTrimmed>false</PublishTrimmed>
+
+
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\Board.png" />
     <None Remove="Assets\Chess_bdt60.png" />
     <None Remove="Assets\Chess_blt60.png" />
+    <None Remove="Assets\Chess_bot_dp.ico" />
     <None Remove="Assets\Chess_bot_dp.png" />
     <None Remove="Assets\Chess_kdt60.png" />
     <None Remove="Assets\Chess_klt60.png" />
@@ -29,11 +36,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Chess_bot_dp.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ChessLogic\ChessLogic.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Board.png" />
+    <Resource Include="Assets\Board.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Chess_bdt60.png" />
     <Resource Include="Assets\Chess_blt60.png" />
     <Resource Include="Assets\Chess_kdt60.png">
@@ -50,7 +63,11 @@
     <Resource Include="Assets\Chess_rlt60.png" />
     <Resource Include="Assets\CursorB.cur" />
     <Resource Include="Assets\CursorW.cur" />
-    <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\icon.ico" />  
+    <Content Include="Assets\Chess_bot_dp.png">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  
   </ItemGroup>
 
 </Project>

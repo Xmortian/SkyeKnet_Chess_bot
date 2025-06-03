@@ -1,0 +1,11 @@
+C:\Users\USER\source\repos\ChessBot\publish2\ChessLogic.exe
+C:\Users\USER\source\repos\ChessBot\publish2\ChessUI.exe
+C:\Users\USER\source\repos\ChessBot\publish2\ChessLogic.deps.json
+C:\Users\USER\source\repos\ChessBot\publish2\ChessLogic.runtimeconfig.json
+C:\Users\USER\source\repos\ChessBot\publish2\Assets\Chess_bot_dp.png
+C:\Users\USER\source\repos\ChessBot\publish2\ChessUI.dll
+C:\Users\USER\source\repos\ChessBot\publish2\ChessUI.deps.json
+C:\Users\USER\source\repos\ChessBot\publish2\ChessUI.runtimeconfig.json
+C:\Users\USER\source\repos\ChessBot\publish2\ChessUI.pdb
+C:\Users\USER\source\repos\ChessBot\publish2\ChessLogic.dll
+C:\Users\USER\source\repos\ChessBot\publish2\ChessLogic.pdb

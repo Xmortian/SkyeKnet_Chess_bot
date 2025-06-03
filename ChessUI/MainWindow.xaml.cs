@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,8 +27,13 @@ namespace ChessUI
         private readonly ChessAI ai = new ChessAI(Player.Black, 15); 
         private ChessClock clock;
         private DispatcherTimer uiTimer;
+        private Move lastMovePlayed;
+        private int currentGameInstanceId = 0; // <<< ADD THIS LINE
 
-        
+        private bool isBotSpeaking = false;
+        private Queue<string> botDialogueQueue = new Queue<string>();
+
+
         private DispatcherTimer typingTimer;
         private string fullDialogueText = "";
         private int typingIndex = 0;
@@ -39,9 +46,13 @@ namespace ChessUI
             gameState = new StateOfGame(Player.White, board.Initial());
             clock = new ChessClock();
             StartClockDisplay();
+
+            BotDialogue.ResetForNewGame();
+
             DrawBoard(gameState.Board);
-            
-            BotDialogue.ResetForNewGame(); 
+            ShowBotDialogue(null, Player.Black); // Ensure greeting shown at game start
+
+
         }
 
         private void StartClockDisplay()
@@ -195,9 +206,12 @@ namespace ChessUI
         {
             if (clock.IsOutOfTime(gameState.CurrentPlayer))
             {
+                lastMovePlayed = move;
+
                 MessageBox.Show($"{gameState.CurrentPlayer} loses on time!");
                 uiTimer.Stop();
-                ShowGameOverMessage(); 
+                ShowGameOverMessage();
+
                 return;
             }
 
@@ -218,7 +232,8 @@ namespace ChessUI
             
             
             
-            ShowBotDialogue(move, Player.Black); 
+            ShowBotDialogue(move, Player.Black);
+            lastMovePlayed = move;
 
             if (!gameState.IsGameOver())
             {
@@ -227,8 +242,11 @@ namespace ChessUI
             }
             else
             {
+                ai.NotifyGameEnded(gameState.result.Winner == Player.Black);
                 ShowGameOverMessage();
+                return;
             }
+
         }
 
         private async void TryBotMove()
@@ -252,6 +270,7 @@ namespace ChessUI
 
                 ai.NotifyOpponentMoved(); 
                 Move aiMove = await Task.Run(() => ai.GetBestMove(gameState)); 
+
                 
                 if (clock.IsOutOfTime(Player.Black)) 
                 {
@@ -264,10 +283,13 @@ namespace ChessUI
                 if (aiMove != null)
                 {
                     gameState.MakeMove(aiMove);
+                    lastMovePlayed = aiMove; 
+
                     DrawBoard(gameState.Board);
                     HideHighlights();
-                    
-                    
+
+                    ShowHighlights(); 
+
                     ShowBotDialogue(aiMove, Player.Black); 
                 }
                 
@@ -293,10 +315,21 @@ namespace ChessUI
         {
             if (gameState.IsGameOver()) return;
 
-            Color color = Color.FromArgb(120, 30, 60, 200);
+            // Highlight last move if available
+            if (lastMovePlayed != null)
+            {
+                Color lastMoveColor = Color.FromArgb(70, 245, 225, 100); // golden soft tone
+                highlights[lastMovePlayed.FromPos.Row, lastMovePlayed.FromPos.Column].Fill = new SolidColorBrush(lastMoveColor);
+                highlights[lastMovePlayed.ToPos.Row, lastMovePlayed.ToPos.Column].Fill = new SolidColorBrush(lastMoveColor);
+            }
+
+            Color moveColor = Color.FromArgb(120, 30, 60, 200);
             foreach (Position to in moveCache.Keys)
-                highlights[to.Row, to.Column].Fill = new SolidColorBrush(color);
+                highlights[to.Row, to.Column].Fill = new SolidColorBrush(moveColor);
+
+
         }
+
 
         private void HideHighlights()
         {
@@ -317,7 +350,7 @@ namespace ChessUI
         {
             if (!gameState.IsGameOver()) return;
 
-            StopAllTimers(); 
+            StopAllTimers();
 
             Result result = gameState.result;
             string message = result.Reasonn switch
@@ -330,9 +363,44 @@ namespace ChessUI
                 _ => "Game Over"
             };
 
+            // Calculate bot perspective win/loss
+            Player botPerspective = Player.Black;
+            bool isBotWin = result.Winner == botPerspective;
+            bool isBotLoss = result.Winner == botPerspective.Opponent();
+
             MessageBox.Show(message, "Game Over", MessageBoxButton.OK, MessageBoxImage.Information);
-            
-            ShowBotDialogue(null, Player.Black); 
+
+            // Directly trigger bot ending dialogue
+            TriggerBotEndDialogue(isBotWin, isBotLoss);
+        }
+
+        private void TriggerBotEndDialogue(bool isBotWin, bool isBotLoss)
+        {
+            if (!isBotWin && !isBotLoss) return;  // Draw situations
+
+            GamePhase phase = EvaluatePhase(gameState);
+            int eval = Evaluator.Evaluate(gameState.Board, Player.Black);
+
+            string line = BotDialogue.GetBotLine(
+                phase,
+                eval,
+                false, // opponentTookLong
+                lastMovePlayed,
+                gameState.Board,
+                Player.Black, // aiPlayer
+                isBotWin,
+                isBotLoss
+            );
+
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                // Clear any existing dialogue
+                botDialogueQueue.Clear();
+                isBotSpeaking = false;
+
+                // Show immediately
+                StartTypingAnimation(line);
+            }
         }
 
         private void StopAllTimers()
@@ -345,37 +413,71 @@ namespace ChessUI
 
         private void ShowBotDialogue(Move lastMove, Player perspectivePlayer)
         {
+
+
+            if (isBotSpeaking)
+                return; // Don’t interrupt existing dialogue
+
             GamePhase phase = EvaluatePhase(gameState);
-            int eval = Evaluator.Evaluate(gameState.Board, perspectivePlayer); 
-            
-            bool isBotWin = gameState.IsGameOver() && gameState.result != null && gameState.result.Winner == perspectivePlayer;
-            bool isBotLoss = gameState.IsGameOver() && gameState.result != null && gameState.result.Winner == perspectivePlayer.Opponent();
-            
-            
-            bool opponentTookLong = false; 
-            
-            
-            
+            int eval = Evaluator.Evaluate(gameState.Board, perspectivePlayer);
+
+            bool isBotWin = gameState.IsGameOver() && gameState.result?.Winner == perspectivePlayer;
+            bool isBotLoss = gameState.IsGameOver() && gameState.result?.Winner == perspectivePlayer.Opponent();
+            bool opponentTookLong = false;
 
             string line = BotDialogue.GetBotLine(
-                phase, 
-                eval, 
-                opponentTookLong, 
-                lastMove, 
-                gameState.Board,    
-                perspectivePlayer,  
-                isBotWin,           
-                isBotLoss           
+                phase,
+                eval,
+                opponentTookLong,
+                lastMove,
+                gameState.Board,
+                perspectivePlayer,
+                isBotWin,
+                isBotLoss
             );
 
             if (!string.IsNullOrWhiteSpace(line))
+            {
                 StartTypingAnimation(line);
-            else
-                BotDialogueText.Text = ""; 
+            }
+
+
+        }
+        private void QueueBotEndingDialogue(Player botPerspective)
+        {
+            GamePhase phase = EvaluatePhase(gameState);
+            int eval = Evaluator.Evaluate(gameState.Board, botPerspective);
+            bool isBotWin = gameState.result?.Winner == botPerspective;
+            bool isBotLoss = gameState.result?.Winner == botPerspective.Opponent();
+
+            string line = BotDialogue.GetBotLine(
+                phase,
+                eval,
+                false,
+                lastMovePlayed,
+                gameState.Board,
+                botPerspective,
+                isBotWin,
+                isBotLoss
+            );
+
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                botDialogueQueue.Enqueue(line);
+
+                if (!isBotSpeaking)
+                {
+                    // Kick off the queue manually if nothing is talking
+                    string nextLine = botDialogueQueue.Dequeue();
+                    StartTypingAnimation(nextLine);
+                }
+            }
         }
 
-        
-        
+
+
+
+
 
         private GamePhase EvaluatePhase(StateOfGame state)
         {
@@ -414,6 +516,7 @@ namespace ChessUI
         }
         private void StartTypingAnimation(string line)
         {
+            isBotSpeaking = true;
             fullDialogueText = line;
             typingIndex = 0;
             BotDialogueText.Text = "";
@@ -422,7 +525,7 @@ namespace ChessUI
             typingTimer?.Stop();
             typingTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(40)
+                Interval = TimeSpan.FromMilliseconds(35)
             };
 
             typingTimer.Tick += (s, e) =>
@@ -442,12 +545,13 @@ namespace ChessUI
             typingTimer.Start();
         }
 
+
         private void StartDialogueClearTimer()
         {
             dialogueDisplayTimer?.Stop();
             dialogueDisplayTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(5) 
+                Interval = TimeSpan.FromSeconds(4.5)
             };
 
             dialogueDisplayTimer.Tick += (s, e) =>
@@ -455,9 +559,83 @@ namespace ChessUI
                 dialogueDisplayTimer.Stop();
                 BotDialogueText.Text = "";
                 BotDialogueText.Visibility = Visibility.Collapsed;
+                isBotSpeaking = false;
+
+                if (botDialogueQueue.Count > 0)
+                {
+                    string nextLine = botDialogueQueue.Dequeue();
+                    StartTypingAnimation(nextLine);
+                }
             };
 
             dialogueDisplayTimer.Start();
         }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void StartOver_Click(object sender, RoutedEventArgs e)
+        {
+            //StopAllTimers();                         // Stop UI + Clock timers
+            //currentGameInstanceId++; // <<< ADD THIS LINE (increment for new game)
+
+            //// Reset Core Game Logic States
+            //BotDialogue.ResetForNewGame();           // Reset bot dialogue intro flags [from BotDialogue.cs, e.g., source 52]
+            //TranspositionTable.Clear();              // Clear the transposition table
+            //MoveOrdering.ClearHistoryAndKillers();   // Clear killer moves and history heuristic
+
+            //gameState = new StateOfGame(Player.White, board.Initial()); // Fresh board & turn
+            //clock = new ChessClock();                // New clock instance
+
+            //// Reset AI specific state
+            //ai.NotifyOpponentMoved();                // Reset AI thinking time
+            //ai.SetLastOpponentMove(null);            // Clear old move history if any for AI
+            //ai.ResetForNewGame(); // Add this line
+
+            //// Reset MainWindow specific game state
+            //lastMovePlayed = null;                   // Clear the last move played in the UI
+            //selectedPos = null;                    // Clear any piece selection
+            //moveCache.Clear();                     // Clear cached moves for any selected piece
+            //isBotSpeaking = false;                 // Reset bot speaking flag
+            //// if (botDialogueQueue != null) botDialogueQueue.Clear(); // If you use a queue
+
+            //// Update UI
+            //DrawBoard(gameState.Board);              // Re-draw fresh board
+            //HideHighlights();                        // Ensure all highlights are cleared
+            //StartClockDisplay();                     // Restart clock visuals
+
+            BotDialogueText.Text = "";                 // Clear any lingering bot message
+            BotDialogueText.Visibility = Visibility.Collapsed; // Hide the dialogue text area
+
+            // Trigger initial bot dialogue for the new game
+            ShowBotDialogue(null, Player.Black);     // Show initial greeting
+        }
+        private void QueueBotDialogue(Player perspective)
+        {
+            GamePhase phase = EvaluatePhase(gameState);
+            int eval = Evaluator.Evaluate(gameState.Board, perspective);
+            string line = BotDialogue.GetBotLine(
+                phase,
+                eval,
+                false,
+                lastMovePlayed,
+                gameState.Board,
+                perspective,
+                gameState.result?.Winner == perspective,
+                gameState.result?.Winner == perspective.Opponent()
+            );
+
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                if (!isBotSpeaking)
+                    StartTypingAnimation(line);
+                else
+                    botDialogueQueue.Enqueue(line);
+            }
+        }
+
+
     }
 }

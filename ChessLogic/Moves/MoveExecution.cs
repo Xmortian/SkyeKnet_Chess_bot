@@ -16,15 +16,15 @@ namespace Chess.AI
 
         public static bool IsCapture(this Move move)
         {
-            return move.CapturedPiece != PieceType.None; // Adjust if you use enums/ints
+            return move.CapturedPiece != PieceType.None; 
         }
 
         public static int Score(this Move move)
         {
             if (move.IsPromotion())
-                return 1000;
+                return 900;
             if (move.IsCapture())
-                return 500;
+                return 100;
             return 0;
         }
     }

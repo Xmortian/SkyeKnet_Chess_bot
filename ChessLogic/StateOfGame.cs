@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic; // Ensure this is at the top
 using System.Linq;
 using ChessLogic.Core;
-
 namespace ChessLogic
 {
     public class StateOfGame
@@ -15,15 +13,22 @@ namespace ChessLogic
         public string stateString;
 
         private readonly Dictionary<string, int> stateHistory = new Dictionary<string, int>();
+        public List<string> MoveHistoryUCI { get; private set; }
 
-        public StateOfGame(Player player, board board)
+
+        public StateOfGame(Player player, board board, bool trackRepetition = false)
         {
             CurrentPlayer = player;
             Board = board;
+            MoveHistoryUCI = new List<string>();
 
-            stateString = new StateString(CurrentPlayer, board).ToString();
-            stateHistory[stateString] = 1;
+            if (trackRepetition)
+            {
+                stateString = new StateString(CurrentPlayer, board).ToString();
+                stateHistory[stateString] = 1;
+            }
         }
+
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
@@ -46,12 +51,14 @@ namespace ChessLogic
         {
             if (IsGameOver())
             {
-                Console.WriteLine("Move ignored: Game Over!");
+                //Console.WriteLine("Move ignored: Game Over!");
                 return;
             }
 
             Board.SetPawnSkipPosition(CurrentPlayer, null);
             bool captureOrPawn = move.Execute(Board);
+            MoveHistoryUCI.Add(move.ToUCI());
+
 
             if (captureOrPawn)
             {
@@ -83,18 +90,18 @@ namespace ChessLogic
 
         private void CheckForGameOver(ChessClock clock = null) 
         {
-            Console.WriteLine("Checking for game over...");
+            //Console.WriteLine("Checking for gamegit  over...");
 
             if (!AllLegalMovesFor(CurrentPlayer).Any())
             {
                 if (Board.IsInCheck(CurrentPlayer))
                 {
-                    Console.WriteLine("Checkmate! Winner: " + CurrentPlayer.Opponent());
+                    //Console.WriteLine("Checkmate! Winner: " + CurrentPlayer.Opponent());
                     result = Result.Win(CurrentPlayer.Opponent());
                 }
                 else
                 {
-                    Console.WriteLine("Game Drawn: Stalemate");
+                    //Console.WriteLine("Game Drawn: Stalemate");
                     result = Result.Draw(EndReasonn.Stalemate);
                 }
 
@@ -105,7 +112,7 @@ namespace ChessLogic
 
             if (Board.InsufficientMaterial())
             {
-                Console.WriteLine("Game Drawn: Insufficient Material!");
+                //Console.WriteLine("Game Drawn: Insufficient Material!");
                 result = Result.Draw(EndReasonn.InsufficientMaterial);
                 EndGame();
                 clock?.StopClock();

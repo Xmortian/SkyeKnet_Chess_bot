@@ -81,16 +81,11 @@ namespace ChessLogic.Core.Ai // Assuming this is the correct namespace
             if (board.CastleRightKS(Player.Black)) hash ^= castleRightsHash[2];
             if (board.CastleRightQS(Player.Black)) hash ^= castleRightsHash[3];
 
-            // En Passant Target Square
-            // The player whose turn it *was* (opponent of currentPlayer) is the one who might have just made a pawn skip.
             Player opponent = currentPlayer.Opponent();
             Position enPassantTargetSquare = board.GetPawnSkipPosition(opponent); // Get EP square vulnerable to currentPlayer
             if (enPassantTargetSquare != null)
             {
-                // We only care about the file of the pawn that *could* be captured.
-                // The actual en passant square (where the capturing pawn moves) is what matters.
-                // board.GetPawnSkipPosition(player) returns the square *behind* the pawn that moved two steps.
-                // This is the square the capturing pawn moves TO.
+
                 hash ^= enPassantFileHash[enPassantTargetSquare.Column];
             }
 
